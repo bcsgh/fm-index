@@ -36,3 +36,21 @@ cc_library(
         "@com_google_googletest//:gtest",
     ],
 )
+
+########################################################
+cc_library(
+    name = "bw-transform",
+    srcs = ["bw-transform.cc"],
+    hdrs = ["bw-transform.h"],
+)
+
+cc_test(
+    name = "bw-transform_test",
+    timeout = "short",
+    srcs = ["bw-transform_test.cc"],
+    deps = [
+        ":bw-transform",
+        ":test_main",
+        "@com_google_googletest//:gtest",
+    ],
+)
