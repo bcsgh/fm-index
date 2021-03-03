@@ -54,3 +54,24 @@ cc_test(
         "@com_google_googletest//:gtest",
     ],
 )
+
+########################################################
+cc_library(
+    name = "wavelet-tree",
+    srcs = ["wavelet-tree.cc"],
+    hdrs = ["wavelet-tree.h"],
+)
+
+cc_test(
+    name = "wavelet-tree_test",
+    timeout = "short",
+    srcs = ["wavelet-tree_test.cc"],
+    data = glob(["*"]),
+    deps = [
+        ":wavelet-tree",
+        ":test_main",
+        "@com_google_absl//absl/cleanup",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_googletest//:gtest",
+    ],
+)
