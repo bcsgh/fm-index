@@ -1,0 +1,16 @@
+digraph G {
+  _Xxx -> _0Xx;
+  _Xxx -> _1Xx;
+  _0Xx -> _00X;
+  _0Xx -> _01X;
+  _1Xx -> _10X;
+  _1Xx -> _11X;
+  
+  _Xxx [shape=box, label="43317220650\n10001000110"];
+   _0Xx [shape=box, label="3312200\n1101100"];
+    _00X [shape=box, label="100\n100"];
+    _01X [shape=box, label="3322\n1100"];
+   _1Xx [shape=box, label="4765\n1001"];
+    _10X [shape=box, label="45\n01"];
+    _11X [shape=box, label="76\n10"];
+}

@@ -35,3 +35,10 @@ git_repository(
     remote = "git://github.com/abseil/abseil-cpp.git",
 )
 
+#############################################
+git_repository(
+    name = "bazel_rules",
+    commit = "e80a09a9c1b40bad33776e6628ef560c3918d66e",  # current as of 2021/03/03
+    shallow_since = "1614825881 -0800",
+    remote = "git://github.com/bcsgh/bazel_rules.git",
+)
