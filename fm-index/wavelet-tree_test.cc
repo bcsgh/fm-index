@@ -29,11 +29,12 @@
 
 #include <glob.h>
 
+#include <fstream>
 #include <map>
+#include <sstream>
 #include <string>
 
 #include "absl/cleanup/cleanup.h"
-#include "absl/flags/flag.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
@@ -62,7 +63,6 @@ std::ostream& operator<<(std::ostream& o, const Case& c) {
 class WaveletTreeTestP : public TestWithParam<Case> {};
 
 TEST_P(WaveletTreeTestP, Basic) {
-  //ASSERT_THAT(GetParam().name, testing::StrEq("@"));
   const std::string kTest = GetParam().content;
   WaveletTree wt(kTest);
 
@@ -89,13 +89,21 @@ std::vector<Case> GetFromFiles() {
   pglob.gl_offs = 0;
   absl::Cleanup free_glob = [&pglob] { globfree(&pglob); };
 
-  glob("fm-index/*", GLOB_MARK | GLOB_NOSORT, NULL, &pglob);
+  glob("fm-index/*.*", GLOB_MARK | GLOB_NOSORT, NULL, &pglob);
 
   std::vector<Case> ret;
   for (size_t i = 0 ; i < pglob.gl_pathc ; i++) {
     std::string file = pglob.gl_pathv[i];
     if (*file.rbegin() == '/') continue;
-    ret.emplace_back(Case{std::move(file), ""});
+
+    std::ifstream t(file);
+    std::stringstream buffer;
+    buffer << t.rdbuf();
+
+    // Dump things that are too long.
+    if (buffer.str().size() > (16 << 10)) continue;
+
+    ret.emplace_back(Case{std::move(file), std::move(buffer.str())});
   }
 
   return ret;
