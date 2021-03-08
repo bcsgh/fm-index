@@ -71,7 +71,33 @@ cc_test(
         ":wavelet-tree",
         ":test_main",
         "@com_google_absl//absl/cleanup",
-        "@com_google_absl//absl/flags:flag",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+########################################################
+cc_library(
+    name = "fm-index",
+    srcs = ["fm-index.cc"],
+    hdrs = ["fm-index.h"],
+    deps = [
+        ":bw-transform",
+        ":wavelet-tree",
+        "@com_github_glog_glog//:glog",
+    ],
+)
+
+cc_test(
+    name = "fm-index_test",
+    timeout = "short",
+    srcs = ["fm-index_test.cc"],
+    data = glob(["*"]),
+    deps = [
+        ":fm-index",
+        ":test_main",
+        "@com_google_absl//absl/cleanup",
+        "@com_google_absl//absl/random",
+        "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest",
     ],
 )
