@@ -41,8 +41,8 @@
 namespace fm_index {
 namespace {
 
-using ::testing::TestWithParam;
 using ::testing::Eq;
+using ::testing::TestWithParam;
 using ::testing::ValuesIn;
 
 struct Case {
@@ -54,11 +54,11 @@ struct Case {
     for (auto &c : ret) if (!isalnum(c)) c = '_';
     return ret;
   }
-};
 
-std::ostream& operator<<(std::ostream& o, const Case& c) {
-  return o << c.name << "[" << c.content.size() << "]";
-}
+  friend std::ostream& operator<<(std::ostream& o, const Case& c) {
+    return o << c.name << "[" << c.content.size() << "]";
+  }
+};
 
 class WaveletTreeTestP : public TestWithParam<Case> {};
 
@@ -80,7 +80,8 @@ TEST_P(WaveletTreeTestP, Basic) {
 }
 
 // Processes some literal strings.
-constexpr auto kShortFixed = "hello world, this is a test of this structure, don't worry, we think it works.";
+constexpr auto kShortFixed = "hello world, this is a test of this structure,"
+                             " don't worry, we think it works.";
 INSTANTIATE_TEST_SUITE_P(
   Fixed, WaveletTreeTestP,
   testing::Values(Case{"ShortFixed", kShortFixed}),
