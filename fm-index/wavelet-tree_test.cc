@@ -71,6 +71,11 @@ TEST_P(WaveletTreeTestP, Basic) {
     auto at = counts[kTest[i]]++;
     EXPECT_THAT(wt.index(i), Eq(at))
         << "Error at position " << i << " ('" << kTest[i] << "')";
+
+    // Also check that things wor if a differnt char is asked about.
+    const char c = kTest[i] + 1;
+    EXPECT_THAT(wt.index(c, i), Eq(counts[c]))
+        << "Error at position " << i << " ('" << c << "')";
   }
 }
 

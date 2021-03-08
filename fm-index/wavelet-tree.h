@@ -39,6 +39,7 @@ class WaveletTree {
   WaveletTree(std::string_view src, int step = 4);
 
   size_t index(size_t) const;
+  size_t index(char c, size_t) const;
 
  private:
   struct Vec {

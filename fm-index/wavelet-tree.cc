@@ -73,6 +73,10 @@ WaveletTree::WaveletTree(std::string_view src, int step) : step_(step), src_(src
 
 size_t WaveletTree::index(size_t i) const {
   const char c = src_[i];
+  return index(c, i);
+}
+
+size_t WaveletTree::index(const char c, size_t i) const {
   size_t at = 0;
 
   for (unsigned char m = 0b10000000 ; m ; m >>= 1) {
@@ -84,6 +88,11 @@ size_t WaveletTree::index(size_t i) const {
     size_t start_sum = 0;//last_byte / step_;
     size_t start_byte = start_sum * step_;
 
+    if (last_byte >= v.bits.size()) {
+      last_byte = v.bits.size();
+      mask = 0;
+    }
+
     // Cached sum
     auto count = (start_sum <= 0) ? 0 : v.pre[start_sum - 1];
     // Full bytes
@@ -91,7 +100,7 @@ size_t WaveletTree::index(size_t i) const {
       count += kBitCounts[v.bits[off]];
     }
     // Partial byte
-    count += kBitCounts[v.bits[last_byte] & mask];
+    if (mask) count += kBitCounts[v.bits[last_byte] & mask];  //?
 
     // Take or leave?
     i = (c & m) ? count : (i - count);
