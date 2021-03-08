@@ -101,22 +101,24 @@ Note that this works regardless of what character is at position $i_0$.
 
 \section{FM-Index}
 
-The FM-Index is inspacted by considering the BWT as a representation of a
+The FM-Index is inspected by considering the BWT as a representation of a
  hypothetical matrix containing all rotations of the corpus.
 To find a string (e.g. "abbaz"), the string is walked backwards keeping track of
- the span of rows in the "matrix" that start with the suffix so far insected.
-At the first step, every row starts with the empty string.
-At each subsequent step, the number of rows, above and inside the span found in
- the prior step, which contains the next character in the query in the last
- column is found.
+ the span of rows in the "matrix" that start with the suffix so far inspected.
+At the first step, every row starts with the empty string so the span is everything.
+At each subsequent step, the count of rows, above and inside the span (from the
+ the prior step) which has as their last character the next character in the
+ query is found.
 These counts, and the index of the first row starting with that character, give
  the span for the next step.
 This can be iterated backwards to test for any given string.
 
 Once the target string is processed, the resulting span of locations can be
- converted to locations in the original string by walking from each location
- using the BTW to find the preceding character until a known location is found
+ converted to locations in the original string by walking from each location,
+ using the BTW to find the preceding character, until a known location is found
  (e.g. via a table mapping the indexes of newlines or null character in the BTW
  to the corresponding location in the original corpus).
 
 \end{document}
+
+
