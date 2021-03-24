@@ -114,3 +114,17 @@ cc_test(
         "@com_google_googletest//:gtest",
     ],
 )
+
+cc_test(
+    name = "fm-index_slow_test",
+    timeout = "moderate",
+    shard_count = 2,  # 2x len(data)
+    tags = ["manual"],
+    srcs = ["fm-index_slow_test.cc"],
+    data = ["@com_github_dwyl_english_words//:words.txt"],
+    deps = [
+        ":fm-index_test_lib",
+        ":test_main",
+        "@com_google_googletest//:gtest",
+    ],
+)

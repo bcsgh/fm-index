@@ -35,19 +35,6 @@ namespace {
 
 using ::testing::ValuesIn;
 
-// Processes some literal strings.
-constexpr auto kShortFixed = "hello world, this is a test of this structure,"
-                             " don't worry, we think it works.";
-INSTANTIATE_TEST_SUITE_P(
-  Fixed, FmIndexTestP,
-  testing::Values(FmCase{"ShortFixed", kShortFixed}),
-  [](testing::TestParamInfo<FmCase> c) { return c.param.Name(); });
-
-INSTANTIATE_TEST_SUITE_P(
-  All, FmIndexTestP,
-  ValuesIn(GetFromFiles("fm-index/*.*")),
-  [](testing::TestParamInfo<FmCase> c) { return c.param.Name(); });
-
 INSTANTIATE_TEST_SUITE_P(
   Large, FmIndexTestP,
   ValuesIn(GetFromFiles("external/com_github_dwyl_english_words/words.txt", 5<<20)),
