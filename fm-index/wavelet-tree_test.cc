@@ -33,8 +33,10 @@
 #include <map>
 #include <sstream>
 #include <string>
+#include <vector>
 
 #include "absl/cleanup/cleanup.h"
+#include "glog/logging.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
@@ -64,7 +66,9 @@ class WaveletTreeTestP : public TestWithParam<Case> {};
 
 TEST_P(WaveletTreeTestP, Basic) {
   const std::string kTest = GetParam().content;
+  LOG(INFO) << "Create WaveletTree size: " << kTest.size() << " ...";
   WaveletTree wt(kTest);
+  LOG(INFO) << "Created WaveletTree.";
 
   std::map<char, int> counts;
   for (size_t i = 0; i < kTest.size(); i++) {
@@ -72,7 +76,7 @@ TEST_P(WaveletTreeTestP, Basic) {
     EXPECT_THAT(wt.index(i), Eq(at))
         << "Error at position " << i << " ('" << kTest[i] << "')";
 
-    // Also check that things wor if a differnt char is asked about.
+    // Also check that things work if a different char is asked about.
     const char c = kTest[i] + 1;
     EXPECT_THAT(wt.index(c, i), Eq(counts[c]))
         << "Error at position " << i << " ('" << c << "')";

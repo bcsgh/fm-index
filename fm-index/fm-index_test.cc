@@ -32,6 +32,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 #include "absl/cleanup/cleanup.h"
 #include "absl/random/random.h"
@@ -88,7 +89,7 @@ TEST_P(FmIndexTestP, CountFind) {
 TEST_P(FmIndexTestP, CountMissing) {
   const std::string kTest = GetParam().content;
 
-  // Find a string that
+  // Find a string that isn't in the text corpus
   int i = 0;
   std::string missing;
   for (int c = 10; c--; i += 37) {

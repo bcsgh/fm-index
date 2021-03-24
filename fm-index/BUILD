@@ -70,6 +70,7 @@ cc_test(
     deps = [
         ":wavelet-tree",
         ":test_main",
+        "@com_github_glog_glog//:glog",
         "@com_google_absl//absl/cleanup",
         "@com_google_googletest//:gtest",
     ],
@@ -95,6 +96,7 @@ cc_test(
     deps = [
         ":fm-index",
         ":test_main",
+        "@com_github_glog_glog//:glog",
         "@com_google_absl//absl/cleanup",
         "@com_google_absl//absl/random",
         "@com_google_absl//absl/strings",
