@@ -25,28 +25,33 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include "fm-index/fm-index_test.h"
+#include <ostream>
+#include <string>
+#include <vector>
 
-#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
 namespace fm_index {
-namespace {
 
-using ::testing::ValuesIn;
+using ::testing::TestWithParam;
 
-// Processes some literal strings.
-constexpr auto kShortFixed = "hello world, this is a test of this structure,"
-                             " don't worry, we think it works.";
-INSTANTIATE_TEST_SUITE_P(
-  Fixed, FmIndexTestP,
-  testing::Values(FmCase{"ShortFixed", kShortFixed}),
-  [](testing::TestParamInfo<FmCase> c) { return c.param.Name(); });
+struct FmCase {
+  std::string name;
+  std::string content;
 
-INSTANTIATE_TEST_SUITE_P(
-  All, FmIndexTestP,
-  ValuesIn(GetFromFiles("fm-index/*.*")),
-  [](testing::TestParamInfo<FmCase> c) { return c.param.Name(); });
+  std::string Name() {
+    auto ret = name;
+    for (auto &c : ret) if (!isalnum(c)) c = '_';
+    return ret;
+  }
 
-}  // namespace
+  friend std::ostream& operator<<(std::ostream& o, const FmCase& c) {
+    return o << c.name << "[" << c.content.size() << "]";
+  }
+};
+
+class FmIndexTestP : public TestWithParam<FmCase> {};
+
+std::vector<FmCase> GetFromFiles(const std::string& pattern, size_t limit = (16 << 10));
+
 }  // namespace fm_index
