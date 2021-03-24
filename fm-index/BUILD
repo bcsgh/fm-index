@@ -66,7 +66,7 @@ cc_test(
     name = "wavelet-tree_test",
     timeout = "short",
     srcs = ["wavelet-tree_test.cc"],
-    data = glob(["*"]),
+    data = glob(["*"]) + ["@com_github_dwyl_english_words//:words.txt"],
     deps = [
         ":wavelet-tree",
         ":test_main",

@@ -42,3 +42,12 @@ git_repository(
     shallow_since = "1614825881 -0800",
     remote = "git://github.com/bcsgh/bazel_rules.git",
 )
+
+#############################################
+new_git_repository(
+    name = "com_github_dwyl_english_words",
+    commit = "11735d0d68f051b817ad224e14d999acc94fcf00",  # current as of 2021/03/16
+    shallow_since = "1602748980 +0100",
+    remote = "https://github.com/dwyl/english-words",
+    build_file = "//extern:BUILD.raw_files",
+)

@@ -124,5 +124,10 @@ INSTANTIATE_TEST_SUITE_P(
   ValuesIn(GetFromFiles()),
   [](testing::TestParamInfo<Case> c) { return c.param.Name(); });
 
+INSTANTIATE_TEST_SUITE_P(
+  Large, WaveletTreeTestP,
+  ValuesIn(GetFromFiles("external/com_github_dwyl_english_words/words.txt", 5<<20)),
+  [](testing::TestParamInfo<WtCase> c) { return c.param.Name(); });
+
 }  // namespace
 }  // namespace fm_index
