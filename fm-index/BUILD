@@ -37,6 +37,15 @@ cc_library(
     ],
 )
 
+test_suite(
+    name = "manual_tests",
+    tags = ["manual"],
+    tests = [
+      # Slow tests
+      ":fm-index_slow_test",
+    ],
+)
+
 ########################################################
 cc_library(
     name = "bw-transform",
