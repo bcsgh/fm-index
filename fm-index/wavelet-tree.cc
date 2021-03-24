@@ -85,7 +85,7 @@ size_t WaveletTree::index(const char c, size_t i) const {
     // Get indexes.
     unsigned char mask = ~(~0 << (i % 8));
     size_t last_byte = i / 8;
-    size_t start_sum = 0;//last_byte / step_;
+    size_t start_sum = last_byte / step_;
     size_t start_byte = start_sum * step_;
 
     if (last_byte >= v.bits.size()) {
