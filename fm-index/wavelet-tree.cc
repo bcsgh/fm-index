@@ -27,6 +27,10 @@
 
 #include "fm-index/wavelet-tree.h"
 
+#include <stdlib.h>
+#include <array>
+#include <string_view>
+
 namespace fm_index {
 namespace {
 //// Build a pop-count table for 8-bit numbers, at compile time.

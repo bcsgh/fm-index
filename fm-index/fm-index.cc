@@ -29,6 +29,7 @@
 
 #include <array>
 #include <iterator>
+#include <string_view>
 
 #include "fm-index/bw-transform.h"
 #include "fm-index/wavelet-tree.h"
