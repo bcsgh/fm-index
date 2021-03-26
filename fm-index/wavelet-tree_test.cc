@@ -92,14 +92,14 @@ INSTANTIATE_TEST_SUITE_P(
   [](testing::TestParamInfo<Case> c) { return c.param.Name(); });
 
 // Grab and process all the sources files in this dir.
-std::vector<Case> GetFromFiles() {
+std::vector<Case> GetFromFiles(const std::string& pattern, size_t limit) {
   glob_t pglob;
   pglob.gl_pathc = 0;
   pglob.gl_pathv = nullptr;
   pglob.gl_offs = 0;
   absl::Cleanup free_glob = [&pglob] { globfree(&pglob); };
 
-  glob("fm-index/*.*", GLOB_MARK | GLOB_NOSORT, NULL, &pglob);
+  glob(pattern.c_str(), GLOB_MARK | GLOB_NOSORT, NULL, &pglob);
 
   std::vector<Case> ret;
   for (size_t i = 0 ; i < pglob.gl_pathc ; i++) {
@@ -111,7 +111,7 @@ std::vector<Case> GetFromFiles() {
     buffer << t.rdbuf();
 
     // Dump things that are too long.
-    if (buffer.str().size() > (16 << 10)) continue;
+    if (buffer.str().size() < 16 || buffer.str().size() > limit) continue;
 
     ret.emplace_back(Case{std::move(file), std::move(buffer.str())});
   }
@@ -121,13 +121,13 @@ std::vector<Case> GetFromFiles() {
 
 INSTANTIATE_TEST_SUITE_P(
   All, WaveletTreeTestP,
-  ValuesIn(GetFromFiles()),
+  ValuesIn(GetFromFiles("fm-index/*.*", (16 << 10))),
   [](testing::TestParamInfo<Case> c) { return c.param.Name(); });
 
 INSTANTIATE_TEST_SUITE_P(
   Large, WaveletTreeTestP,
   ValuesIn(GetFromFiles("external/com_github_dwyl_english_words/words.txt", 5<<20)),
-  [](testing::TestParamInfo<WtCase> c) { return c.param.Name(); });
+  [](testing::TestParamInfo<Case> c) { return c.param.Name(); });
 
 }  // namespace
 }  // namespace fm_index
