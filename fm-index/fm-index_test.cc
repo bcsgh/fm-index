@@ -38,9 +38,13 @@ using ::testing::ValuesIn;
 // Processes some literal strings.
 constexpr auto kShortFixed = "hello world, this is a test of this structure,"
                              " don't worry, we think it works.";
+constexpr auto kLongFixed = "one line\ntwo lines\nthree lines\nfloor!";
 INSTANTIATE_TEST_SUITE_P(
   Fixed, FmIndexTestP,
-  testing::Values(FmCase{"ShortFixed", kShortFixed}),
+  testing::Values(
+    FmCase{"ShortFixed", kShortFixed},
+    FmCase{"LongFixed", kLongFixed}
+  ),
   [](testing::TestParamInfo<FmCase> c) { return c.param.Name(); });
 
 INSTANTIATE_TEST_SUITE_P(
