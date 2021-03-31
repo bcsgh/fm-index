@@ -93,6 +93,7 @@ cc_library(
     deps = [
         ":bw-transform",
         ":wavelet-tree",
+        "@com_google_absl//absl/strings",
         "@com_github_glog_glog//:glog",
     ],
 )

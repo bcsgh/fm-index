@@ -28,8 +28,10 @@
 #ifndef FM_INDEX_FM_INDEX_H_
 #define FM_INDEX_FM_INDEX_H_
 
+#include <set>
 #include <string>
 #include <string_view>
+#include <vector>
 
 #include "fm-index/wavelet-tree.h"
 
@@ -42,11 +44,33 @@ class FMIndex {
   int count(std::string_view);
 
  private:
+  friend class FMIndexLookup;
+
   std::pair<size_t, size_t> Find(std::string_view);
+
+  size_t Walk(size_t from);
 
   std::string bwt_;
   WaveletTree wt_;
   std::array<size_t, 256> cumulative_;
+};
+
+// An index of strings/records.
+// Given a query, the set of records contaning that query can be returned,
+// and then the content of those records looked up.
+//
+// This is intended to be used in contexts like an auto-compleet backend.
+class FMIndexLookup : FMIndex {
+ public:
+  // Generate an index from a collection of *unique* records.
+  FMIndexLookup(std::vector<std::string> text);
+
+  std::set<size_t> FindCanonical(std::string_view q);
+  // Lookup a string from it's canonical index.
+  std::string_view Lookup(size_t i) { return text_[i]; }
+
+ private:
+  std::vector<std::string> text_;
 };
 
 }  // namespace fm_index

@@ -27,10 +27,13 @@
 
 #include "fm-index/fm-index.h"
 
+#include <algorithm>
 #include <array>
 #include <iterator>
+#include <set>
 #include <string_view>
 
+#include "absl/strings/str_join.h"
 #include "fm-index/bw-transform.h"
 #include "fm-index/wavelet-tree.h"
 #include "glog/logging.h"
@@ -80,9 +83,50 @@ std::pair<size_t, size_t> FMIndex::Find(std::string_view q) {
   return {low, high};
 }
 
+// Walk index backward one position in the BWT.
+size_t FMIndex::Walk(size_t from) {
+  const auto c = bwt_[from];
+  const auto start = cumulative_[c];
+  return start + wt_.index(c, from);
+}
+
 int FMIndex::count(std::string_view q) {
   auto b = Find(q);
   return b.second - b.first;
+}
+
+namespace {
+// Sort something in place and then return it.
+template <class T>
+T* SortThrough(T* t) {
+  std::sort(std::begin(*t), std::end(*t));
+  return t;
+}
+constexpr std::string_view null_str = {"\0", 1};
+}  // namespace
+
+
+FMIndexLookup::FMIndexLookup(std::vector<std::string> text)
+    : FMIndex(absl::StrCat(absl::StrJoin(*SortThrough(&text), null_str), null_str)),
+      text_(std::move(text)) {
+}
+
+std::set<size_t> FMIndexLookup::FindCanonical(std::string_view q) {
+  auto found = Find(q);
+  std::set<size_t> ret;
+
+  // Walk each index to a "cononical" result.
+  //
+  // Beacsue the index is formed on sorted and '\0' seperated strings, the next
+  // position walked to after finding a '\0' will always be in a desnse pack at
+  // the head of the BWT and will be the index of the records in the sorted set.
+  for(auto i = found.first; i <= found.second; i++) {
+    auto at = i;
+    while(bwt_[at] != '\0') at = Walk(at);
+    ret.insert(Walk(at));
+  }
+
+  return ret;
 }
 
 }  // namespace fm_index

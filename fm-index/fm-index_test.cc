@@ -27,6 +27,10 @@
 
 #include "fm-index/fm-index_test.h"
 
+#include <string>
+#include <vector>
+
+#include "fm-index/fm-index.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
@@ -50,6 +54,60 @@ INSTANTIATE_TEST_SUITE_P(
 INSTANTIATE_TEST_SUITE_P(
   All, FmIndexTestP,
   ValuesIn(GetFromFiles("fm-index/*.*")),
+  [](testing::TestParamInfo<FmCase> c) { return c.param.Name(); });
+
+class FmIndexTestLookupP : public TestWithParam<FmCase> {};
+
+TEST_P(FmIndexTestLookupP, CountMissing) {
+  const std::string kTest = GetParam().content;
+  ASSERT_NE(kTest.find("\0"), std::string::npos);
+
+  std::vector<std::string> lines;
+
+  // Get the set of lines.
+  std::string::size_type at = 0;
+  while (true) {
+    auto next = kTest.find("\n", at);
+    if (next != std::string::npos) {
+      lines.emplace_back(kTest.substr(at, next - at));
+      at = next + 1;
+    } else {
+      if (kTest.size() != at) {
+        lines.emplace_back(kTest.substr(at, kTest.size() - at));
+      }
+      break;
+    }
+  }
+  ASSERT_GT(lines.size(), 0);
+
+  FMIndexLookup idx(lines);
+
+  auto q = lines[lines.size()/2];  // A "random" sting.
+
+  int c;
+
+  auto found1 = idx.FindCanonical(q.substr(0, q.size()/3));  // first third.
+  c = 0;
+  for (const auto i : found1) if (idx.Lookup(i) == q) c++;
+  EXPECT_EQ(c, 1);
+
+  auto found2 = idx.FindCanonical(q.substr(q.size()*2/3));   // last third.
+  c = 0;
+  for (const auto i : found2) if (idx.Lookup(i) == q) c++;
+  EXPECT_EQ(c, 1);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+  Fixed, FmIndexTestLookupP,
+  testing::Values(
+    FmCase{"ShortFixed", kShortFixed},
+    FmCase{"LongFixed", kLongFixed}
+  ),
+  [](testing::TestParamInfo<FmCase> c) { return c.param.Name(); });
+
+INSTANTIATE_TEST_SUITE_P(
+  All, FmIndexTestLookupP,
+  ValuesIn(GetFromFiles("fm-index/""*.*")),
   [](testing::TestParamInfo<FmCase> c) { return c.param.Name(); });
 
 }  // namespace
