@@ -117,7 +117,7 @@ cc_test(
     name = "fm-index_test",
     timeout = "short",
     srcs = ["fm-index_test.cc"],
-    data = glob(["*"]),
+    data = glob(["*"]) + ["@com_github_dwyl_english_words//:words.txt"],
     deps = [
         ":fm-index_test_lib",
         ":test_main",
