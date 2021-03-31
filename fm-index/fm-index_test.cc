@@ -52,10 +52,5 @@ INSTANTIATE_TEST_SUITE_P(
   ValuesIn(GetFromFiles("fm-index/*.*")),
   [](testing::TestParamInfo<FmCase> c) { return c.param.Name(); });
 
-INSTANTIATE_TEST_SUITE_P(
-  Large, FmIndexTestP,
-  ValuesIn(GetFromFiles("external/com_github_dwyl_english_words/words.txt", 5<<20)),
-  [](testing::TestParamInfo<FmCase> c) { return c.param.Name(); });
-
 }  // namespace
 }  // namespace fm_index
