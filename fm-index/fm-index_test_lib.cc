@@ -78,9 +78,9 @@ TEST_P(FmIndexTestP, CountMissing) {
   std::string missing;
   for (int c = 10; c--; i += 37) {
     missing = absl::StrCat("X", kTest.substr(i % (kTest.size() - 9), 9));
-    LOG(INFO) << "<<" << missing << ">>";
     if (kTest.find(missing) == std::string::npos) break;
   }
+  LOG(INFO) << "Looking for <<" << missing << ">>";
   ASSERT_THAT(kTest.find(missing), Eq(std::string::npos));
 
   FMIndex idx(kTest);
