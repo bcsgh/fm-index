@@ -27,6 +27,7 @@
 
 #include "fm-index/fm-index_test.h"
 
+#include <set>
 #include <string>
 #include <vector>
 
@@ -63,17 +64,20 @@ TEST_P(FmIndexTestLookupP, CountMissing) {
   ASSERT_NE(kTest.find("\0"), std::string::npos);
 
   std::vector<std::string> lines;
+  std::set<std::string> dupes;
 
   // Get the set of lines.
   std::string::size_type at = 0;
   while (true) {
     auto next = kTest.find("\n", at);
     if (next != std::string::npos) {
-      lines.emplace_back(kTest.substr(at, next - at));
+      auto add = kTest.substr(at, next - at);
+      if (dupes.emplace(add).second) lines.emplace_back(add);
       at = next + 1;
     } else {
       if (kTest.size() != at) {
-        lines.emplace_back(kTest.substr(at, kTest.size() - at));
+        auto add = kTest.substr(at, kTest.size() - at);
+        if (dupes.emplace(add).second) lines.emplace_back(add);
       }
       break;
     }
