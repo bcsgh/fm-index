@@ -15,3 +15,6 @@ The set of strings given must be unique and must have no embedded `\0`.
 Once constructed an `FMIndexLookup` can be queried like an `FMIndex` and also yeild the
  "indexes" of the matching records which can be converted back to the origianl strings.
 This API is intended to support more complex queries like those needed for an autocomplete.
+
+## Setup (for development)
+To configure the git hooks, run `./.git_hooks/setup.sh`
