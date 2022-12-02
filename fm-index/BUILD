@@ -29,9 +29,10 @@ cc_library(
     name = "test_main",
     srcs = ["test_main.cc"],
     deps = [
-        "@com_github_glog_glog//:glog",
         "@com_google_absl//absl/flags:flag",
         "@com_google_absl//absl/flags:parse",
+        "@com_google_absl//absl/log:initialize",
+        "@com_google_absl//absl/log:log",
         "@com_google_absl//absl/time",
         "@com_google_googletest//:gtest",
     ],
@@ -79,8 +80,8 @@ cc_test(
     deps = [
         ":test_main",
         ":wavelet-tree",
-        "@com_github_glog_glog//:glog",
         "@com_google_absl//absl/cleanup",
+        "@com_google_absl//absl/log:log",
         "@com_google_googletest//:gtest",
     ],
 )
@@ -93,8 +94,8 @@ cc_library(
     deps = [
         ":bw-transform",
         ":wavelet-tree",
+        "@com_google_absl//absl/log:log",
         "@com_google_absl//absl/strings",
-        "@com_github_glog_glog//:glog",
     ],
 )
 
@@ -105,8 +106,8 @@ cc_library(
     deps = [
         ":fm-index",
         ":test_main",
-        "@com_github_glog_glog//:glog",
         "@com_google_absl//absl/cleanup",
+        "@com_google_absl//absl/log:log",
         "@com_google_absl//absl/random",
         "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest",

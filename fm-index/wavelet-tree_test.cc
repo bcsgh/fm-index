@@ -36,7 +36,7 @@
 #include <vector>
 
 #include "absl/cleanup/cleanup.h"
-#include "glog/logging.h"
+#include "absl/log/log.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 

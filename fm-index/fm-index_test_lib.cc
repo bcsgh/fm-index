@@ -39,7 +39,7 @@
 #include "absl/random/random.h"
 #include "absl/strings/str_cat.h"
 #include "fm-index/fm-index.h"
-#include "glog/logging.h"
+#include "absl/log/log.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 

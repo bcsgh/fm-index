@@ -36,7 +36,7 @@
 #include "absl/strings/str_join.h"
 #include "fm-index/bw-transform.h"
 #include "fm-index/wavelet-tree.h"
-#include "glog/logging.h"
+#include "absl/log/log.h"
 
 namespace fm_index {
 
