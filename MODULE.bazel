@@ -4,10 +4,10 @@ module(
 )
 
 git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
 bazel_dep(
     name = "abseil-cpp",
     version = "20240722.0.bcr.2",
-    repo_name = "com_google_absl",
 )
 
 bazel_dep(
@@ -31,5 +31,4 @@ git_repository(
 bazel_dep(
     name = "googletest",
     version = "1.15.2",
-    repo_name = "com_google_googletest",
 )

@@ -29,12 +29,12 @@ cc_library(
     name = "test_main",
     srcs = ["test_main.cc"],
     deps = [
-        "@com_google_absl//absl/flags:flag",
-        "@com_google_absl//absl/flags:parse",
-        "@com_google_absl//absl/log:initialize",
-        "@com_google_absl//absl/log:log",
-        "@com_google_absl//absl/time",
-        "@com_google_googletest//:gtest",
+        "@abseil-cpp//absl/flags:flag",
+        "@abseil-cpp//absl/flags:parse",
+        "@abseil-cpp//absl/log:initialize",
+        "@abseil-cpp//absl/log:log",
+        "@abseil-cpp//absl/time",
+        "@googletest//:gtest",
     ],
 )
 
@@ -61,7 +61,7 @@ cc_test(
     deps = [
         ":bw-transform",
         ":test_main",
-        "@com_google_googletest//:gtest",
+        "@googletest//:gtest",
     ],
 )
 
@@ -80,9 +80,9 @@ cc_test(
     deps = [
         ":test_main",
         ":wavelet-tree",
-        "@com_google_absl//absl/cleanup",
-        "@com_google_absl//absl/log:log",
-        "@com_google_googletest//:gtest",
+        "@abseil-cpp//absl/cleanup",
+        "@abseil-cpp//absl/log:log",
+        "@googletest//:gtest",
     ],
 )
 
@@ -94,8 +94,8 @@ cc_library(
     deps = [
         ":bw-transform",
         ":wavelet-tree",
-        "@com_google_absl//absl/log:log",
-        "@com_google_absl//absl/strings",
+        "@abseil-cpp//absl/log:log",
+        "@abseil-cpp//absl/strings",
     ],
 )
 
@@ -106,11 +106,11 @@ cc_library(
     deps = [
         ":fm-index",
         ":test_main",
-        "@com_google_absl//absl/cleanup",
-        "@com_google_absl//absl/log:log",
-        "@com_google_absl//absl/random",
-        "@com_google_absl//absl/strings",
-        "@com_google_googletest//:gtest",
+        "@abseil-cpp//absl/cleanup",
+        "@abseil-cpp//absl/log:log",
+        "@abseil-cpp//absl/random",
+        "@abseil-cpp//absl/strings",
+        "@googletest//:gtest",
     ],
 )
 
@@ -122,7 +122,7 @@ cc_test(
     deps = [
         ":fm-index_test_lib",
         ":test_main",
-        "@com_google_googletest//:gtest",
+        "@googletest//:gtest",
     ],
 )
 
@@ -136,6 +136,6 @@ cc_test(
     deps = [
         ":fm-index_test_lib",
         ":test_main",
-        "@com_google_googletest//:gtest",
+        "@googletest//:gtest",
     ],
 )
