@@ -7,14 +7,12 @@ git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "g
 
 bazel_dep(
     name = "abseil-cpp",
-    version = "20240722.0.bcr.2",
+    version = "20250127.0",
 )
-
 bazel_dep(
     name = "com_github_bcsgh_graphviz",
     version = "0.0.1",
 )
-
 bazel_dep(
     name = "com_github_bcsgh_latex_rules",
     version = "0.0.1",
@@ -22,13 +20,19 @@ bazel_dep(
 
 git_repository(
     name = "com_github_dwyl_english_words",
+    build_file = "//extern:BUILD.raw_files",
     commit = "a77cb15f4f5beb59c15b945f2415328a6b33c3b0",  # current as of 2023/11/12
     remote = "https://github.com/dwyl/english-words",
-    build_file = "//extern:BUILD.raw_files",
     shallow_since = "1667945476 +0000",
 )
 
 bazel_dep(
     name = "googletest",
-    version = "1.15.2",
+    version = "1.16.0",
+    dev_dependency = True,
+)
+
+bazel_dep(
+    name = "rules_cc",
+    version = "0.1.1",
 )

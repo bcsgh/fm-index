@@ -25,6 +25,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
+load("@rules_cc//cc:cc_test.bzl", "cc_test")
+
 cc_library(
     name = "test_main",
     srcs = ["test_main.cc"],
@@ -42,8 +45,8 @@ test_suite(
     name = "manual_tests",
     tags = ["manual"],
     tests = [
-      # Slow tests
-      ":fm-index_slow_test",
+        # Slow tests
+        ":fm-index_slow_test",
     ],
 )
 
@@ -129,10 +132,10 @@ cc_test(
 cc_test(
     name = "fm-index_slow_test",
     timeout = "moderate",
-    shard_count = 2,  # 2x len(data)
-    tags = ["manual"],
     srcs = ["fm-index_slow_test.cc"],
     data = ["@com_github_dwyl_english_words//:words.txt"],
+    shard_count = 2,  # 2x len(data)
+    tags = ["manual"],
     deps = [
         ":fm-index_test_lib",
         ":test_main",
