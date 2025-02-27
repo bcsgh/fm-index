@@ -25,6 +25,9 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+#ifndef FM_INDEX_FM_INDEX_TEST_H_
+#define FM_INDEX_FM_INDEX_TEST_H_
+
 #include <ostream>
 #include <string>
 #include <vector>
@@ -55,3 +58,5 @@ class FmIndexTestP : public TestWithParam<FmCase> {};
 std::vector<FmCase> GetFromFiles(const std::string& pattern, size_t limit = (16 << 10));
 
 }  // namespace fm_index
+
+#endif  // FM_INDEX_FM_INDEX_TEST_H_
