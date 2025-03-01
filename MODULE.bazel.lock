@@ -43,6 +43,7 @@
     "https://bcr.bazel.build/modules/com_github_bcsgh_graphviz/0.0.1/MODULE.bazel": "not found",
     "https://bcr.bazel.build/modules/com_github_bcsgh_latex_rules/0.0.1/MODULE.bazel": "not found",
     "https://bcr.bazel.build/modules/com_github_bcsgh_status_repository/0.0.1/MODULE.bazel": "not found",
+    "https://bcr.bazel.build/modules/com_github_bcsgh_test_base/0.0.1/MODULE.bazel": "not found",
     "https://bcr.bazel.build/modules/google_benchmark/1.8.2/MODULE.bazel": "a70cf1bba851000ba93b58ae2f6d76490a9feb74192e57ab8e8ff13c34ec50cb",
     "https://bcr.bazel.build/modules/googletest/1.11.0/MODULE.bazel": "3a83f095183f66345ca86aa13c58b59f9f94a2f81999c093d4eeaa2d262d12f4",
     "https://bcr.bazel.build/modules/googletest/1.14.0.bcr.1/MODULE.bazel": "22c31a561553727960057361aa33bf20fb2e98584bc4fec007906e27053f80c6",
@@ -163,7 +164,9 @@
     "https://bcsgh.github.io/bazel-registry/modules/com_github_bcsgh_latex_rules/0.0.1/MODULE.bazel": "76500b93f61f98c95ac9569ba66d47ef0b1d8a646525d720986bd5685e885177",
     "https://bcsgh.github.io/bazel-registry/modules/com_github_bcsgh_latex_rules/0.0.1/source.json": "db80ef710535bb9ba4e0c5423b06fc162fb30180db35704953f23d8bffdad26d",
     "https://bcsgh.github.io/bazel-registry/modules/com_github_bcsgh_status_repository/0.0.1/MODULE.bazel": "eb2c5c2e8e93ee3aeec1e59199723789a02b0304f48bf839ef08977e52f704a6",
-    "https://bcsgh.github.io/bazel-registry/modules/com_github_bcsgh_status_repository/0.0.1/source.json": "b6a1e16f892970a30a5415b9f178e095bd53edc63ed66645ff2eb0c7cfe52518"
+    "https://bcsgh.github.io/bazel-registry/modules/com_github_bcsgh_status_repository/0.0.1/source.json": "b6a1e16f892970a30a5415b9f178e095bd53edc63ed66645ff2eb0c7cfe52518",
+    "https://bcsgh.github.io/bazel-registry/modules/com_github_bcsgh_test_base/0.0.1/MODULE.bazel": "5fedaae757ce9819018d49b500cbbcc3586bed19197872b060ae95c3db597436",
+    "https://bcsgh.github.io/bazel-registry/modules/com_github_bcsgh_test_base/0.0.1/source.json": "9af2e5f35a497b6d56e738ff594b5dd9395b5af068477a6159fd17180cf6fa43"
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {

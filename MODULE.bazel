@@ -27,6 +27,11 @@ git_repository(
 )
 
 bazel_dep(
+    name = "com_github_bcsgh_test_base",
+    version = "0.0.1",
+    dev_dependency = True,
+)
+bazel_dep(
     name = "googletest",
     version = "1.16.0",
     dev_dependency = True,

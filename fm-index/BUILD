@@ -28,19 +28,6 @@
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_cc//cc:cc_test.bzl", "cc_test")
 
-cc_library(
-    name = "test_main",
-    srcs = ["test_main.cc"],
-    deps = [
-        "@abseil-cpp//absl/flags:flag",
-        "@abseil-cpp//absl/flags:parse",
-        "@abseil-cpp//absl/log:initialize",
-        "@abseil-cpp//absl/log:log",
-        "@abseil-cpp//absl/time",
-        "@googletest//:gtest",
-    ],
-)
-
 test_suite(
     name = "manual_tests",
     tags = ["manual"],
@@ -63,7 +50,7 @@ cc_test(
     srcs = ["bw-transform_test.cc"],
     deps = [
         ":bw-transform",
-        ":test_main",
+        "@com_github_bcsgh_test_base//test_base:test_main",
         "@googletest//:gtest",
     ],
 )
@@ -81,10 +68,10 @@ cc_test(
     srcs = ["wavelet-tree_test.cc"],
     data = glob(["*"]) + ["@com_github_dwyl_english_words//:words.txt"],
     deps = [
-        ":test_main",
         ":wavelet-tree",
         "@abseil-cpp//absl/cleanup",
         "@abseil-cpp//absl/log:log",
+        "@com_github_bcsgh_test_base//test_base:test_main",
         "@googletest//:gtest",
     ],
 )
@@ -108,11 +95,11 @@ cc_library(
     hdrs = ["fm-index_test.h"],
     deps = [
         ":fm-index",
-        ":test_main",
         "@abseil-cpp//absl/cleanup",
         "@abseil-cpp//absl/log:log",
         "@abseil-cpp//absl/random",
         "@abseil-cpp//absl/strings",
+        "@com_github_bcsgh_test_base//test_base:test_main",
         "@googletest//:gtest",
     ],
 )
@@ -124,7 +111,7 @@ cc_test(
     data = glob(["*"]) + ["@com_github_dwyl_english_words//:words.txt"],
     deps = [
         ":fm-index_test_lib",
-        ":test_main",
+        "@com_github_bcsgh_test_base//test_base:test_main",
         "@googletest//:gtest",
     ],
 )
@@ -138,7 +125,7 @@ cc_test(
     tags = ["manual"],
     deps = [
         ":fm-index_test_lib",
-        ":test_main",
+        "@com_github_bcsgh_test_base//test_base:test_main",
         "@googletest//:gtest",
     ],
 )
